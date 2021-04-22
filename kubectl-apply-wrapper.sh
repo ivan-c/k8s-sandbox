@@ -35,3 +35,6 @@ if [ -z "$(kubectl get secret generic -n metallb-system memberlist --ignore-not-
     kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
 fi
 kubectl apply -f "$MANIFEST_DIR"/load-balancer
+
+echo Installing ingress...
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.45.0/deploy/static/provider/cloud/deploy.yaml
