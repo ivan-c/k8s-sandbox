@@ -38,3 +38,6 @@ kubectl apply -f "$MANIFEST_DIR"/load-balancer
 
 echo Installing ingress...
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.45.0/deploy/static/provider/cloud/deploy.yaml
+
+echo Installing ingress test...
+kubectl apply -f "$MANIFEST_DIR"/ingress-test
