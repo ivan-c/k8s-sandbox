@@ -3,6 +3,7 @@
 set -e
 
 cmdname="$(basename "$0")"
+script_path="$(cd "$(dirname "$0")" && pwd)"
 
 usage() {
    cat << USAGE >&2
@@ -20,7 +21,17 @@ if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
     usage
 fi
 
-MANIFEST_DIR=manifests
+# load environment variables from .env files
+# automatically export all variables
+set -a
+for environment_variable_file in "$script_path/"*.env; do
+    test -e "$environment_variable_file" || continue
+    . "${environment_variable_file}"
+done
+set +a
+
+
+MANIFEST_DIR="${script_path}"/manifests
 
 echo Installing k8s dashboard...
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.4/aio/deploy/recommended.yaml
