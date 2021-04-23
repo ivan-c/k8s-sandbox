@@ -52,3 +52,9 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 
 echo Installing ingress test...
 kubectl apply -f "$MANIFEST_DIR"/ingress-test
+
+echo Installing certificate manager...
+kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.3.0/cert-manager.yaml
+
+cat "$MANIFEST_DIR"/cert-manager/05dns-challenge-secret.yaml.tmpl | envsubst | kubectl apply -f -
+kubectl apply -f "$MANIFEST_DIR"/cert-manager
