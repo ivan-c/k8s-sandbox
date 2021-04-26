@@ -1,0 +1,16 @@
+---
+name: Lint
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: python:3.7
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Install yamllint
+        run: python3 -m pip install yamllint
+
+      - name: Run yamllint
+        run: find -name "*.yaml" -exec yamllint --strict {} \;
