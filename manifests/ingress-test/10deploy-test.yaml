@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -16,7 +17,7 @@ spec:
         app: whoami
     spec:
       containers:
-      - name: whoami
-        image: containous/whoami
-        ports:
-        - containerPort: 80
+        - name: whoami
+          image: containous/whoami
+          ports:
+            - containerPort: 80

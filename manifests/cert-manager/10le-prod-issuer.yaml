@@ -1,3 +1,4 @@
+---
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
@@ -13,8 +14,8 @@ spec:
     privateKeySecretRef:
       name: letsencrypt-prod
     solvers:
-    - dns01:
-        digitalocean:
-          tokenSecretRef:
-            name: digitalocean-dns
-            key: access-token
+      - dns01:
+          digitalocean:
+            tokenSecretRef:
+              name: digitalocean-dns
+              key: access-token

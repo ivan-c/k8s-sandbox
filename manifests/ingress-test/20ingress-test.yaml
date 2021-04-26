@@ -1,3 +1,4 @@
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -9,17 +10,17 @@ metadata:
 
 spec:
   tls:
-  - hosts:
-    - ingress0.k8s.nimb.us.eu.org
-    secretName: quickstart-example-tls
+    - secretName: quickstart-example-tls
+      hosts:
+        - ingress0.k8s.nimb.us.eu.org
   rules:
-  - host: ingress0.k8s.nimb.us.eu.org
-    http:
-      paths:
-      - path: /
-        pathType: Exact
-        backend:
-          service:
-            name: whoami
-            port:
-              number: 80
+    - host: ingress0.k8s.nimb.us.eu.org
+      http:
+        paths:
+          - path: /
+            pathType: Exact
+            backend:
+              service:
+                name: whoami
+                port:
+                  number: 80
