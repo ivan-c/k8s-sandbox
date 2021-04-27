@@ -63,6 +63,7 @@ echo Installing certificate manager...
 # https://cert-manager.io/docs/installation/kubernetes/#installing-with-regular-manifests
 kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.3.0/cert-manager.yaml
 
+# https://cert-manager.io/docs/configuration/acme/#creating-a-basic-acme-issuer
 kubectl apply -f "$MANIFEST_DIR"/cert-manager
 # https://cert-manager.io/docs/configuration/acme/dns01/digitalocean/
 cat "$MANIFEST_DIR"/cert-manager/05dns-challenge-secret.yaml.tmpl | envsubst | kubectl apply -f -
