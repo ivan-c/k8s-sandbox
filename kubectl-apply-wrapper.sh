@@ -17,18 +17,22 @@ USAGE
    exit 1
 }
 
+
+load_env_files() {
+    # load environment variables into current shell given list of environment variable files
+    # automatically export all variables
+    set -a
+    . $@
+    set +a
+}
+
+
 if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
     usage
 fi
 
 # load environment variables from .env files
-# automatically export all variables
-set -a
-for environment_variable_file in "$script_path/"*.env; do
-    test -e "$environment_variable_file" || continue
-    . "${environment_variable_file}"
-done
-set +a
+load_env_files "$script_path/"*.env
 
 
 MANIFEST_DIR="${script_path}"/manifests
