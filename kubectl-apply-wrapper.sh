@@ -68,6 +68,10 @@ kubectl apply -f "$MANIFEST_DIR"/cert-manager
 # https://cert-manager.io/docs/configuration/acme/dns01/digitalocean/
 cat "$MANIFEST_DIR"/cert-manager/05dns-challenge-secret.yaml.tmpl | envsubst | kubectl apply -f -
 
+echo Installing external-dns...
+kubectl apply -f "$MANIFEST_DIR"/external-dns
+cat "$MANIFEST_DIR"/external-dns/30service.yaml.tmpl | envsubst | kubectl apply -f -
+
 echo Installing ingress test...
 # https://cert-manager.io/docs/tutorials/acme/ingress/
 kubectl apply -f "$MANIFEST_DIR"/ingress-test
