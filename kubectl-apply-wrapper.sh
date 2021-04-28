@@ -69,7 +69,9 @@ kubectl apply -f "$MANIFEST_DIR"/cert-manager
 cat "$MANIFEST_DIR"/cert-manager/05dns-challenge-secret.yaml.tmpl | envsubst | kubectl apply -f -
 
 echo Installing external-dns...
+# https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/digitalocean.md#manifest-for-clusters-with-rbac-enabled
 kubectl apply -f "$MANIFEST_DIR"/external-dns
+# https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/digitalocean.md
 cat "$MANIFEST_DIR"/external-dns/30service.yaml.tmpl | envsubst | kubectl apply -f -
 
 echo Installing ingress test...
