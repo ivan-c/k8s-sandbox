@@ -8,6 +8,7 @@ Contents
 - metallb as a bare-metal load-balancer
 - ingress-nginx for ingress
 - cert-manager for https certificate management
+- external-dns for managing public DNS records
 
 Usage
 -----
