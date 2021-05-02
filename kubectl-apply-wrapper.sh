@@ -63,6 +63,10 @@ echo Installing certificate manager...
 # https://cert-manager.io/docs/installation/kubernetes/#installing-with-regular-manifests
 kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.3.0/cert-manager.yaml
 
+# Internal error occurred: failed calling webhook "webhook.cert-manager.io": Post "https://cert-manager-webhook.cert-manager.svc:443/mutate?timeout=10s
+# TODO try adding wait for rollout; see https://github.com/jetstack/cert-manager/issues/2736
+sleep 5m
+
 # https://cert-manager.io/docs/configuration/acme/#creating-a-basic-acme-issuer
 kubectl apply -f "$MANIFEST_DIR"/cert-manager
 # https://cert-manager.io/docs/configuration/acme/dns01/digitalocean/
