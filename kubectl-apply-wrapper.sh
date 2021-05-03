@@ -63,6 +63,9 @@ echo Installing certificate manager...
 # https://cert-manager.io/docs/installation/kubernetes/#installing-with-regular-manifests
 kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.3.0/cert-manager.yaml
 
+echo Waiting for cert-manager startup...
+kubectl wait --for=condition=available --timeout=600s -n cert-manager --all deploy
+
 # https://cert-manager.io/docs/configuration/acme/#creating-a-basic-acme-issuer
 kubectl apply -f "$MANIFEST_DIR"/cert-manager
 # https://cert-manager.io/docs/configuration/acme/dns01/digitalocean/
@@ -73,6 +76,12 @@ echo Installing external-dns...
 kubectl apply -f "$MANIFEST_DIR"/external-dns
 # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/digitalocean.md
 cat "$MANIFEST_DIR"/external-dns/30service.yaml.tmpl | envsubst | kubectl apply -f -
+
+echo Waiting for ingress-nginx admission webhook...
+kubectl wait --namespace ingress-nginx \
+  --for=condition=ready pod \
+  --selector=app.kubernetes.io/component=controller \
+  --timeout=600s
 
 echo Installing ingress test...
 # https://cert-manager.io/docs/tutorials/acme/ingress/
