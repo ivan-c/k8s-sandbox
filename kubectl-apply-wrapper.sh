@@ -66,6 +66,7 @@ kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.3
 echo Waiting for cert-manager webhook to become available...
 kubectl wait --for=condition=available --timeout=600s -n cert-manager deploy/cert-manager
 kubectl wait --for=condition=available --timeout=600s -n cert-manager deploy/cert-manager-cainjector
+kubectl -n cert-manager rollout status deploy/cert-manager-webhook
 
 # https://cert-manager.io/docs/configuration/acme/#creating-a-basic-acme-issuer
 kubectl apply -f "$MANIFEST_DIR"/cert-manager
