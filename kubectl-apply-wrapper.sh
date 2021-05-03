@@ -69,13 +69,13 @@ kubectl wait --for=condition=available --timeout=600s -n cert-manager --all depl
 # https://cert-manager.io/docs/configuration/acme/#creating-a-basic-acme-issuer
 kubectl apply -f "$MANIFEST_DIR"/cert-manager
 # https://cert-manager.io/docs/configuration/acme/dns01/digitalocean/
-cat "$MANIFEST_DIR"/cert-manager/05dns-challenge-secret.yaml.tmpl | envsubst | kubectl apply -f -
+envsubst < "$MANIFEST_DIR"/cert-manager/05dns-challenge-secret.yaml.tmpl | kubectl apply -f -
 
 echo Installing external-dns...
 # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/digitalocean.md#manifest-for-clusters-with-rbac-enabled
 kubectl apply -f "$MANIFEST_DIR"/external-dns
 # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/digitalocean.md
-cat "$MANIFEST_DIR"/external-dns/30service.yaml.tmpl | envsubst | kubectl apply -f -
+envsubst < "$MANIFEST_DIR"/external-dns/30service.yaml.tmpl | kubectl apply -f -
 
 echo Waiting for ingress-nginx admission webhook...
 kubectl wait --namespace ingress-nginx \
