@@ -64,7 +64,7 @@ echo Installing certificate manager...
 kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.3.0/cert-manager.yaml
 
 echo Waiting for cert-manager startup...
-time kubectl wait --for=condition=available --timeout=600s -n cert-manager --all deploy
+kubectl wait --for=condition=available --timeout=600s -n cert-manager --all deploy
 
 # https://cert-manager.io/docs/configuration/acme/#creating-a-basic-acme-issuer
 kubectl apply -f "$MANIFEST_DIR"/cert-manager
@@ -78,7 +78,7 @@ kubectl apply -f "$MANIFEST_DIR"/external-dns
 cat "$MANIFEST_DIR"/external-dns/30service.yaml.tmpl | envsubst | kubectl apply -f -
 
 echo Waiting for ingress-nginx admission webhook...
-time kubectl wait --namespace ingress-nginx \
+kubectl wait --namespace ingress-nginx \
   --for=condition=ready pod \
   --selector=app.kubernetes.io/component=controller \
   --timeout=600s
