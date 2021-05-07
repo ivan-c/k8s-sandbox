@@ -74,11 +74,11 @@ configPassword: 9h8sdfg9sdgfjsdfg8sdgsdfjgklsdfg8sdgfhj
 # Custom openldap configuration files used to override default settings
 customLdifFiles:
   0-initial-ous.ldif: |-
-    dn: ou=People,dc=ssotest,dc=staging,dc=nimbus
+    dn: ou=People,dc=ssotest,dc=staging,dc=nimb,dc=us,dc=eu,dc=org
     objectClass: organizationalUnit
     ou: People
 
-    dn: ou=Group,dc=ssotest,dc=staging,dc=nimbus
+    dn: ou=Group,dc=ssotest,dc=staging,dc=nimb,dc=us,dc=eu,dc=org
     objectClass: organizationalUnit
     ou: Group
 
