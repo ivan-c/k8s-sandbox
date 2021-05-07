@@ -19,7 +19,8 @@ strategy: {}
 image:
   # From repository https://github.com/osixia/docker-openldap
   repository: osixia/openldap
-  tag: 1.2.4
+  # arm64 support first availalbe in 1.3.0
+  tag: 1.3.0
   pullPolicy: IfNotPresent
 
 # Spcifies an existing secret to be used for admin and config user passwords
