@@ -86,3 +86,6 @@ kubectl wait --namespace ingress-nginx \
 echo Installing ingress test...
 # https://cert-manager.io/docs/tutorials/acme/ingress/
 kubectl apply -f "$MANIFEST_DIR"/ingress-test
+
+echo Creating persistent volume...
+kubectl apply -f "$MANIFEST_DIR"/storage
