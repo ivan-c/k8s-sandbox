@@ -92,3 +92,12 @@ kubectl wait --namespace ingress-nginx \
 echo Installing ingress test...
 # https://cert-manager.io/docs/tutorials/acme/ingress/
 kubectl apply -f "$MANIFEST_DIR"/ingress-test
+
+ensure_helm
+
+echo Installing NFS External Storage Provisioner...
+helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
+helm upgrade nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
+    --install \
+    --set nfs.server=doduo \
+    --set nfs.path=/doduo/system-data/kubernetes
