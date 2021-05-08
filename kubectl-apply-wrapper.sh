@@ -27,6 +27,12 @@ load_env_files() {
 }
 
 
+ensure_helm() {
+    if command -v helm > /dev/null; then return; fi
+    echo Installing helm...
+    curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+}
+
 if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
     usage
 fi
