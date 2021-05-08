@@ -95,3 +95,7 @@ kubectl apply -f "$MANIFEST_DIR"/ingress-test
 
 echo Creating persistent volume...
 kubectl apply -f "$MANIFEST_DIR"/storage
+
+ensure_helm
+echo Installing openldap...
+helm upgrade --install --create-namespace --namespace identity openldap "$script_path"/charts/openldap --values "$MANIFEST_DIR"/ldap/values-openldap.yml
