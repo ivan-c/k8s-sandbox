@@ -101,3 +101,10 @@ helm upgrade nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs
     --install \
     --set nfs.server=doduo \
     --set nfs.path=/doduo/system-data/kubernetes
+
+echo Installing openldap...
+helm repo add helm-openldap https://jp-gouin.github.io/helm-openldap/
+helm upgrade openldap helm-openldap/openldap-stack-ha \
+    --install \
+    --create-namespace --namespace identity \
+    --values "$MANIFEST_DIR"/helm/ldap/values-openldap.yml
