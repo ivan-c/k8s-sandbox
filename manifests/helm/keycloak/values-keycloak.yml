@@ -1,0 +1,61 @@
+extraEnv: |
+  - name: KEYCLOAK_LOGLEVEL
+    value: DEBUG
+  - name: KEYCLOAK_USER
+    value: admin
+  - name: KEYCLOAK_PASSWORD
+    value: as897gsdfs766dfsgjhsdf
+  - name: PROXY_ADDRESS_FORWARDING
+    value: "true"
+
+args:
+  - -Dkeycloak.profile.feature.docker=enabled
+
+ingress:
+  enabled: true
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  rules:
+    - host: sso.ssotest.nimb.us.eu.org
+      paths:
+        - /
+
+  tls:
+  - hosts:
+    - sso.ssotest.nimb.us.eu.org
+    secretName: keycloak-tld-secret
+
+# TODO find or build multi-arch image
+image:
+  repository: docker.io/richardjkendall/keycloak-arm
+  tag: latest
+
+postgresql:
+  enabled: true
+  postgresqlPassword: asdfaso97sadfjylfasdsf78
+
+postgresql:
+  # https://github.com/bitnami/charts/blob/master/bitnami/postgresql/README.md#deploy-chart-using-docker-official-postgresql-image
+  image:
+    registry: docker.io
+    repository: postgres
+    tag: 13
+  persistence:
+    storageClass: nfs-client
+    mountPath: /data/
+  postgresqlDataDir: /data/pgdata
+
+  ## Pod Security Context
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+  ##
+  securityContext:
+    enabled: true
+    # match to postgres user in image
+    fsGroup: 999
+
+  ## Container Security Context
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+  ##
+  containerSecurityContext:
+    enabled: true
+    runAsUser: 999
