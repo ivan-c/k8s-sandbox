@@ -118,3 +118,7 @@ helm upgrade openldap helm-openldap/openldap-stack-ha \
     --install \
     --create-namespace --namespace identity \
     --values "$MANIFEST_DIR"/helm/ldap/values-openldap.yml
+
+echo Installing Keycloak...
+helm repo add codecentric https://codecentric.github.io/helm-charts
+helm upgrade --install --create-namespace --namespace identity keycloak codecentric/keycloak --values "$MANIFEST_DIR"/helm/keycloak/values-keycloak.yml
