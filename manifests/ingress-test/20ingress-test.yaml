@@ -12,9 +12,9 @@ spec:
   tls:
     - secretName: quickstart-example-tls
       hosts:
-        - ingress0.k8s.nimb.us.eu.org
+        - ingress1.k8s.nimb.us.eu.org
   rules:
-    - host: ingress0.k8s.nimb.us.eu.org
+    - host: ingress1.k8s.nimb.us.eu.org
       http:
         paths:
           - path: /
