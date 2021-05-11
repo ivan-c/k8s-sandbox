@@ -76,6 +76,7 @@ kubectl wait --for=condition=available --timeout=600s -n cert-manager --all depl
 kubectl apply -f "$MANIFEST_DIR"/cert-manager
 # https://cert-manager.io/docs/configuration/acme/dns01/digitalocean/
 envsubst < "$MANIFEST_DIR"/cert-manager/05dns-challenge-secret.yaml.tmpl | kubectl apply -f -
+envsubst < "$MANIFEST_DIR"/cert-manager/05dns-challenge-secret-cluster-issuer.yaml.tmpl | kubectl apply -f -
 
 echo Installing external-dns...
 # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/digitalocean.md#manifest-for-clusters-with-rbac-enabled
