@@ -43,11 +43,6 @@ load_env_files "$script_path/"*.env
 
 MANIFEST_DIR="${script_path}"/manifests
 
-echo Installing k8s dashboard...
-# https://github.com/kubernetes/dashboard#install
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.4/aio/deploy/recommended.yaml
-# https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md
-kubectl apply -f "$MANIFEST_DIR"/dashboard
 
 echo Installing load-balancer...
 # https://metallb.universe.tf/installation#installation-by-manifest
@@ -102,6 +97,15 @@ helm upgrade nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs
     --install \
     --set nfs.server=doduo \
     --set nfs.path=/doduo/system-data/kubernetes
+
+# connect to http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:k8s-dashboard-kubernetes-dashboard:https/proxy/
+echo Installing k8s dashboard...
+# https://github.com/kubernetes/dashboard#install
+helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
+helm upgrade k8s-dashboard kubernetes-dashboard/kubernetes-dashboard \
+    --install \
+    --create-namespace --namespace kubernetes-dashboard \
+    --values "$MANIFEST_DIR"/helm/dashboard/values-k8s-dashboard.yml
 
 echo Installing openldap...
 helm repo add helm-openldap https://jp-gouin.github.io/helm-openldap/
