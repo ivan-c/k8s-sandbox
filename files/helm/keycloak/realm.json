@@ -938,7 +938,7 @@
             "cn=admin,dc=ssotest,dc=nimb,dc=us,dc=eu,dc=org"
           ],
           "bindCredential": [
-            "**********"
+            "admin"
           ],
           "changedSyncPeriod": [
             "-1"
