@@ -1,3 +1,4 @@
+
 extraEnv: |
   - name: KEYCLOAK_LOGLEVEL
     value: DEBUG
@@ -7,6 +8,21 @@ extraEnv: |
     value: as897gsdfs766dfsgjhsdf
   - name: PROXY_ADDRESS_FORWARDING
     value: "true"
+
+  # load realm JSON from secret
+  - name: KEYCLOAK_IMPORT
+    value: /realm/realm.json
+
+extraVolumes: |
+  - name: realm-secret
+    secret:
+      secretName: realm-secret
+
+extraVolumeMounts: |
+  - name: realm-secret
+    mountPath: "/realm/"
+    readOnly: true
+
 
 args:
   - -Dkeycloak.profile.feature.docker=enabled
