@@ -107,6 +107,11 @@ helm upgrade k8s-dashboard kubernetes-dashboard/kubernetes-dashboard \
     --create-namespace --namespace kubernetes-dashboard \
     --values "$MANIFEST_DIR"/helm/dashboard/values-k8s-dashboard.yml
 
+# TODO investigate better way of accessing dashboard than ServiceAccount
+echo Granting admin to dashboard user...
+# https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md
+kubectl apply -f "$MANIFEST_DIR"/dashboard
+
 echo Installing openldap...
 helm repo add helm-openldap https://jp-gouin.github.io/helm-openldap/
 helm upgrade openldap helm-openldap/openldap-stack-ha \
