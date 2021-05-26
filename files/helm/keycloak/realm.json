@@ -99,7 +99,7 @@
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
-      "secret": "**********",
+      "secret": "5281ace5-14b7-420f-a9b4-6057acf6821b",
       "redirectUris": [
         "/oauth2/callback"
       ],
