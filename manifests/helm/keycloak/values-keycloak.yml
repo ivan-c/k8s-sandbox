@@ -1,3 +1,6 @@
+service:
+  type: LoadBalancer
+
 extraEnv: |
   - name: KEYCLOAK_LOGLEVEL
     value: DEBUG
