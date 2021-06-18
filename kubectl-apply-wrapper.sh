@@ -129,3 +129,10 @@ fi
 echo Installing Keycloak...
 helm repo add codecentric https://codecentric.github.io/helm-charts
 helm upgrade --install --create-namespace --namespace identity keycloak codecentric/keycloak --values "$MANIFEST_DIR"/helm/keycloak/values-keycloak.yml
+
+echo Installing oauth2-proxy
+helm repo add oauth2-proxy https://oauth2-proxy.github.io/manifests
+helm upgrade oauth2-proxy oauth2-proxy/oauth2-proxy \
+    --install \
+    --create-namespace --namespace identity \
+    --values "$MANIFEST_DIR"/helm/oauth2-proxy/values-oauth2-proxy.yml
