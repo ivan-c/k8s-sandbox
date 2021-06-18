@@ -42,6 +42,7 @@ load_env_files "$script_path/"*.env
 
 
 MANIFEST_DIR="${script_path}"/manifests
+FILES_DIR="${script_path}"/files
 
 
 echo Installing load-balancer...
@@ -118,6 +119,12 @@ helm upgrade openldap helm-openldap/openldap-stack-ha \
     --install \
     --create-namespace --namespace identity \
     --values "$MANIFEST_DIR"/helm/ldap/values-openldap.yml
+
+# On first install only
+if [ -z "$(kubectl get secret generic -n identity realm-secret --ignore-not-found)" ]; then
+    echo Configuring Keycloak secrets...
+    kubectl create secret generic -n identity realm-secret --from-file="$FILES_DIR"/helm/keycloak/realm.json
+fi
 
 echo Installing Keycloak...
 helm repo add codecentric https://codecentric.github.io/helm-charts
